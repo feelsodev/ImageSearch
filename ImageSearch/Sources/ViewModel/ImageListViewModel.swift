@@ -6,3 +6,44 @@
 //
 
 import Foundation
+import RxSwift
+
+protocol ImageListViewModelInput {
+  var searchImage: AnyObserver<String> { get }
+}
+
+protocol ImageListViewModelOutput {
+  var allImageList: Observable<[Image]> { get }
+}
+
+protocol ImageListViewModelType: ImageListViewModelInput, ImageListViewModelOutput {}
+
+class ImageListViewModel: ImageListViewModelType {
+  let disposeBag = DisposeBag()
+  
+  // INPUT
+  let searchImage: AnyObserver<String>
+  
+  // OUTPUT
+  let allImageList: Observable<[Image]>
+  
+  init(model: ImageListFetchable = ImageListModel()) {
+    
+    let searchingImage = PublishSubject<String>()
+    let imageList = BehaviorSubject<[Image]>(value: [])
+    
+    // INPUT
+    
+    self.searchImage = searchingImage.asObserver()
+    
+    searchingImage
+      .flatMap(model.fetchImageList)
+      .subscribe(onNext: imageList.onNext)
+      .disposed(by: self.disposeBag)
+    
+    
+    // OUTPUT
+    
+    self.allImageList = imageList
+  }
+}

@@ -15,7 +15,8 @@ class BaseViewController: UIViewController {
   // MARK: - Property
   
   var disposeBag = DisposeBag()
-  
+  let viewWidth = UIScreen.main.bounds.width
+  let viewHeight = UIScreen.main.bounds.height
   
   // MARK: - Init
   
@@ -31,10 +32,15 @@ class BaseViewController: UIViewController {
     super.viewDidLoad()
     self.view.backgroundColor = .white
     self.setupConstraints()
+    self.bind()
   }
   
   // override point
   func setupConstraints() {
+    
+  }
+  
+  func bind() {
     
   }
 }

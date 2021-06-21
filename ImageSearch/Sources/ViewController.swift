@@ -8,12 +8,14 @@
 import UIKit
 
 class ViewController: UIViewController {
+  let searchController = UISearchController(searchResultsController: nil)
 
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    // Do any additional setup after loading the view.
+    self.navigationItem.searchController = searchController
+    self.view.backgroundColor = .white
   }
-
-
+  
+  
 }
-

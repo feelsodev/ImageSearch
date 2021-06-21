@@ -75,8 +75,9 @@ class ImageListViewController: BaseViewController {
     // INPUT
     self.searchController.searchBar.rx.text
       .orEmpty
-      .distinctUntilChanged()
+      .skip(1)
       .debounce(.seconds(1), scheduler: MainScheduler.instance)
+      .distinctUntilChanged()
       .bind(to: self.viewModel.searchImage)
       .disposed(by: self.disposeBag)
     

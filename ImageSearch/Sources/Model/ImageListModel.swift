@@ -21,11 +21,11 @@ class ImageListModel: ImageListFetchable {
   func fetchImageList(param: String) -> Observable<[Image]> {
     return self.repository.getImageListRx(param: param)
       .map { data in
-        guard let response = try? JSONDecoder().decode([Image].self, from: data) else {
+        guard let response = try? JSONDecoder().decode(Items.self, from: data) else {
           throw NSError(domain: "Decoding error", code: -1, userInfo: nil)
         }
         
-        return response
+        return response.documents
       }
   }
 }

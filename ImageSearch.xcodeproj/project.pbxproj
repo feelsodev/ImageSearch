@@ -11,8 +11,8 @@
 		95B2373C13621475BCBDF939 /* Pods_ImageSearch_ImageSearchUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 779148D563ECEC302BAAFA4D /* Pods_ImageSearch_ImageSearchUITests.framework */; };
 		A52795AC2680F2890033CDC1 /* ImageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52795AB2680F2890033CDC1 /* ImageListViewModel.swift */; };
 		A52795AE2680F2910033CDC1 /* ImageListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52795AD2680F2910033CDC1 /* ImageListModel.swift */; };
-		A52795B22680F29D0033CDC1 /* Document.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52795AF2680F29D0033CDC1 /* Document.swift */; };
-		A52795B32680F29D0033CDC1 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52795B02680F29D0033CDC1 /* Image.swift */; };
+		A52795B22680F29D0033CDC1 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52795AF2680F29D0033CDC1 /* Image.swift */; };
+		A52795B32680F29D0033CDC1 /* Items.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52795B02680F29D0033CDC1 /* Items.swift */; };
 		A52795B42680F29D0033CDC1 /* Meta.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52795B12680F29D0033CDC1 /* Meta.swift */; };
 		A52795B82680F2A40033CDC1 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52795B52680F2A40033CDC1 /* NetworkManager.swift */; };
 		A52795B92680F2A40033CDC1 /* NetworkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52795B62680F2A40033CDC1 /* NetworkRouter.swift */; };
@@ -57,8 +57,8 @@
 		779148D563ECEC302BAAFA4D /* Pods_ImageSearch_ImageSearchUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ImageSearch_ImageSearchUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A52795AB2680F2890033CDC1 /* ImageListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageListViewModel.swift; sourceTree = "<group>"; };
 		A52795AD2680F2910033CDC1 /* ImageListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageListModel.swift; sourceTree = "<group>"; };
-		A52795AF2680F29D0033CDC1 /* Document.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Document.swift; sourceTree = "<group>"; };
-		A52795B02680F29D0033CDC1 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		A52795AF2680F29D0033CDC1 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		A52795B02680F29D0033CDC1 /* Items.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Items.swift; sourceTree = "<group>"; };
 		A52795B12680F29D0033CDC1 /* Meta.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meta.swift; sourceTree = "<group>"; };
 		A52795B52680F2A40033CDC1 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		A52795B62680F2A40033CDC1 /* NetworkRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRouter.swift; sourceTree = "<group>"; };
@@ -246,8 +246,8 @@
 		A5404E4726809FAC009CBA6E /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				A52795AF2680F29D0033CDC1 /* Document.swift */,
-				A52795B02680F29D0033CDC1 /* Image.swift */,
+				A52795AF2680F29D0033CDC1 /* Image.swift */,
+				A52795B02680F29D0033CDC1 /* Items.swift */,
 				A52795B12680F29D0033CDC1 /* Meta.swift */,
 			);
 			path = Entity;
@@ -532,14 +532,14 @@
 				A5404E11268095D6009CBA6E /* ImageListViewController.swift in Sources */,
 				A52795C02680F2EB0033CDC1 /* Contents.swift in Sources */,
 				A52795B92680F2A40033CDC1 /* NetworkRouter.swift in Sources */,
-				A52795B32680F29D0033CDC1 /* Image.swift in Sources */,
+				A52795B32680F29D0033CDC1 /* Items.swift in Sources */,
 				A52795B82680F2A40033CDC1 /* NetworkManager.swift in Sources */,
 				A52795AC2680F2890033CDC1 /* ImageListViewModel.swift in Sources */,
 				A5404E4A26809FE0009CBA6E /* BaseViewController.swift in Sources */,
 				A52795AE2680F2910033CDC1 /* ImageListModel.swift in Sources */,
 				A52795BE2680F2CD0033CDC1 /* ImageListCell.swift in Sources */,
 				A5404E0D268095D6009CBA6E /* AppDelegate.swift in Sources */,
-				A52795B22680F29D0033CDC1 /* Document.swift in Sources */,
+				A52795B22680F29D0033CDC1 /* Image.swift in Sources */,
 				A5404E0F268095D6009CBA6E /* SceneDelegate.swift in Sources */,
 				A52795BA2680F2A40033CDC1 /* NetworkService.swift in Sources */,
 				A52795BC2680F2AF0033CDC1 /* BaseCollectionViewCell.swift in Sources */,

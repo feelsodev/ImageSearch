@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,6 +17,7 @@
 		A5404E19268095D7009CBA6E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A5404E17268095D7009CBA6E /* LaunchScreen.storyboard */; };
 		A5404E24268095D7009CBA6E /* ImageSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5404E23268095D7009CBA6E /* ImageSearchTests.swift */; };
 		A5404E2F268095D7009CBA6E /* ImageSearchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5404E2E268095D7009CBA6E /* ImageSearchUITests.swift */; };
+		A5404E3E268099C9009CBA6E /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = A5404E3D268099C9009CBA6E /* .swiftlint.yml */; };
 		B7E1B307C47B911DFC9163B7 /* Pods_ImageSearch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 420A4D93CD4D9378044B331B /* Pods_ImageSearch.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +57,7 @@
 		A5404E2A268095D7009CBA6E /* ImageSearchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ImageSearchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5404E2E268095D7009CBA6E /* ImageSearchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearchUITests.swift; sourceTree = "<group>"; };
 		A5404E30268095D7009CBA6E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A5404E3D268099C9009CBA6E /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		A7FA3D1EB70FEDC03610A056 /* Pods-ImageSearch-ImageSearchUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageSearch-ImageSearchUITests.debug.xcconfig"; path = "Target Support Files/Pods-ImageSearch-ImageSearchUITests/Pods-ImageSearch-ImageSearchUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		BFD8435FADAAF271DC409617 /* Pods-ImageSearchTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageSearchTests.release.xcconfig"; path = "Target Support Files/Pods-ImageSearchTests/Pods-ImageSearchTests.release.xcconfig"; sourceTree = "<group>"; };
 		E1BF2C0C0FC467F84400021E /* Pods-ImageSearch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ImageSearch.debug.xcconfig"; path = "Target Support Files/Pods-ImageSearch/Pods-ImageSearch.debug.xcconfig"; sourceTree = "<group>"; };
@@ -101,13 +103,13 @@
 				E689D5FC85A7208A293AD93F /* Pods-ImageSearchTests.debug.xcconfig */,
 				BFD8435FADAAF271DC409617 /* Pods-ImageSearchTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
 		A5404E00268095D6009CBA6E = {
 			isa = PBXGroup;
 			children = (
+				A5404E3D268099C9009CBA6E /* .swiftlint.yml */,
 				A5404E0B268095D6009CBA6E /* ImageSearch */,
 				A5404E22268095D7009CBA6E /* ImageSearchTests */,
 				A5404E2D268095D7009CBA6E /* ImageSearchUITests */,
@@ -181,6 +183,7 @@
 				A5404E06268095D6009CBA6E /* Frameworks */,
 				A5404E07268095D6009CBA6E /* Resources */,
 				714CF3E8C10AA8D7F92A9420 /* [CP] Embed Pods Frameworks */,
+				A5404E3C26809950009CBA6E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -277,6 +280,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5404E3E268099C9009CBA6E /* .swiftlint.yml in Resources */,
 				A5404E19268095D7009CBA6E /* LaunchScreen.storyboard in Resources */,
 				A5404E16268095D7009CBA6E /* Assets.xcassets in Resources */,
 				A5404E14268095D6009CBA6E /* Main.storyboard in Resources */,
@@ -377,6 +381,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ImageSearch/Pods-ImageSearch-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		A5404E3C26809950009CBA6E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint\n";
 		};
 		B5B1C8FEB3D9BCFBFF5FAC4F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -515,7 +536,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -570,7 +591,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

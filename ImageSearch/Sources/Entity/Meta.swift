@@ -9,7 +9,7 @@ import Foundation
 
 struct Meta: Codable {
   let isEnd: Bool
-  let pageableCount
+  let pageableCount: Int
   let totalCount: Int
   
   enum CodingKeys: String, CodingKey {

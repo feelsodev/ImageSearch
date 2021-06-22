@@ -11,7 +11,7 @@ protocol ImageListFetchable: AnyObject {
   func fetchImageList(param: String) -> Observable<[Image]>
 }
 
-class ImageListModel: ImageListFetchable {
+final class ImageListModel: ImageListFetchable {
   let repository: NetworkServiceType
   
   init(repository: NetworkServiceType = NetworkService()) {

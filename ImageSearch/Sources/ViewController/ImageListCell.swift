@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ImageListCell: BaseCollectionViewCell {
+final class ImageListCell: BaseCollectionViewCell {
   
   // MARK: - Property
   

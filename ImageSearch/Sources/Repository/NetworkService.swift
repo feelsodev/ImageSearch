@@ -12,7 +12,7 @@ protocol NetworkServiceType {
   func getImageListRx(param: String) -> Observable<Data>
 }
 
-class NetworkService: NetworkServiceType {
+final class NetworkService: NetworkServiceType {
   func getImageListRx(param: String) -> Observable<Data> {
     return Observable.create { observer in
       self.getImageList(paramData: param) { result in

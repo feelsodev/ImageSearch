@@ -10,7 +10,7 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class ImageListViewController: BaseViewController {
+final class ImageListViewController: BaseViewController {
   
   
   

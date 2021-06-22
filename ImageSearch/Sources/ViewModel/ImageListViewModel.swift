@@ -18,7 +18,7 @@ protocol ImageListViewModelOutput {
 
 protocol ImageListViewModelType: ImageListViewModelInput, ImageListViewModelOutput {}
 
-class ImageListViewModel: ImageListViewModelType {
+final class ImageListViewModel: ImageListViewModelType {
   let disposeBag = DisposeBag()
   
   // INPUT

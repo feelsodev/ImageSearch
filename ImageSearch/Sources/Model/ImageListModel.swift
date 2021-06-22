@@ -9,20 +9,39 @@ import RxSwift
 
 protocol ImageListFetchable: AnyObject {
   func fetchImageList(param: String) -> Observable<[Image]>
+  func nextPageImageList() -> Observable<[Image]>
 }
 
 final class ImageListModel: ImageListFetchable {
   let repository: NetworkServiceType
+  var pageState: Int = 1
+  var paramState: String = ""
   
   init(repository: NetworkServiceType = NetworkService()) {
     self.repository = repository
   }
   
   func fetchImageList(param: String) -> Observable<[Image]> {
-    return self.repository.getImageListRx(param: param)
+    self.paramState = param
+    self.pageState = 1
+    
+    return self.repository.getImageListRx(param: param, page: self.pageState)
       .map { data in
         guard let response = try? JSONDecoder().decode(Items.self, from: data) else {
-          throw NSError(domain: "Decoding error", code: -1, userInfo: nil)
+          throw NSError(domain: "Fetch Image Decoding error", code: -1, userInfo: nil)
+        }
+        
+        return response.items
+      }
+  }
+  
+  func nextPageImageList() -> Observable<[Image]> {
+    self.pageState += 1
+
+    return self.repository.getImageListRx(param: self.paramState, page: self.pageState)
+      .map { data in
+        guard let response = try? JSONDecoder().decode(Items.self, from: data) else {
+          throw NSError(domain: "Next page Decoding error", code: -1, userInfo: nil)
         }
         
         return response.items

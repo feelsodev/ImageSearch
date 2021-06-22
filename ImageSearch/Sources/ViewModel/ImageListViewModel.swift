@@ -30,7 +30,7 @@ final class ImageListViewModel: ImageListViewModelType {
   init(model: ImageListFetchable = ImageListModel()) {
     
     let searchingImage = PublishSubject<String>()
-    let imageList = BehaviorSubject<[Image]>(value: [])
+    let imageList = PublishSubject<[Image]>()
     
     // INPUT
     

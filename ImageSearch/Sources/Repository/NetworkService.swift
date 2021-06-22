@@ -31,7 +31,11 @@ final class NetworkService: NetworkServiceType {
 
 extension NetworkService {
   private func getImageList(paramData: String, onComplete: @escaping (Result<Data, Error>) -> Void) {
-    let param = ["query": paramData]
+    let param: [String: Any] = [
+      "query": paramData,
+      "page": 1,
+      "size": 30
+    ]
     
     NetworkManager
       .shared

@@ -8,6 +8,11 @@
 import Foundation
 
 struct Items: Codable {
-  let documents: [Image]
+  let items: [Image]
   let meta: Meta
+  
+  enum CodingKeys: String, CodingKey {
+    case items = "documents"
+    case meta
+  }
 }

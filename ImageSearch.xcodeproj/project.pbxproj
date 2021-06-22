@@ -20,6 +20,8 @@
 		A52795BC2680F2AF0033CDC1 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52795BB2680F2AF0033CDC1 /* BaseCollectionViewCell.swift */; };
 		A52795BE2680F2CD0033CDC1 /* ImageListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52795BD2680F2CD0033CDC1 /* ImageListCell.swift */; };
 		A52795C02680F2EB0033CDC1 /* Contents.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52795BF2680F2EB0033CDC1 /* Contents.swift */; };
+		A52795C52681C2D30033CDC1 /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52795C42681C2D30033CDC1 /* UIImageView+Ext.swift */; };
+		A52795C82681C86A0033CDC1 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A52795C72681C86A0033CDC1 /* ImageCacheManager.swift */; };
 		A5404E0D268095D6009CBA6E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5404E0C268095D6009CBA6E /* AppDelegate.swift */; };
 		A5404E0F268095D6009CBA6E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5404E0E268095D6009CBA6E /* SceneDelegate.swift */; };
 		A5404E11268095D6009CBA6E /* ImageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5404E10268095D6009CBA6E /* ImageListViewController.swift */; };
@@ -66,6 +68,8 @@
 		A52795BB2680F2AF0033CDC1 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
 		A52795BD2680F2CD0033CDC1 /* ImageListCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageListCell.swift; sourceTree = "<group>"; };
 		A52795BF2680F2EB0033CDC1 /* Contents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contents.swift; sourceTree = "<group>"; };
+		A52795C42681C2D30033CDC1 /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
+		A52795C72681C86A0033CDC1 /* ImageCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheManager.swift; sourceTree = "<group>"; };
 		A5404E09268095D6009CBA6E /* ImageSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImageSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A5404E0C268095D6009CBA6E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../AppDelegate.swift; sourceTree = "<group>"; };
 		A5404E0E268095D6009CBA6E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SceneDelegate.swift; path = ../SceneDelegate.swift; sourceTree = "<group>"; };
@@ -128,6 +132,22 @@
 				BFD8435FADAAF271DC409617 /* Pods-ImageSearchTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		A52795C32681C2C40033CDC1 /* Extensions-Utillities */ = {
+			isa = PBXGroup;
+			children = (
+				A52795C42681C2D30033CDC1 /* UIImageView+Ext.swift */,
+			);
+			path = "Extensions-Utillities";
+			sourceTree = "<group>";
+		};
+		A52795C62681C8450033CDC1 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				A52795C72681C86A0033CDC1 /* ImageCacheManager.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		A5404E00268095D6009CBA6E = {
@@ -195,6 +215,8 @@
 		A5404E4126809EEB009CBA6E /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				A52795C62681C8450033CDC1 /* Utility */,
+				A52795C32681C2C40033CDC1 /* Extensions-Utillities */,
 				A5404E4726809FAC009CBA6E /* Entity */,
 				A5404E4626809FA7009CBA6E /* Repository */,
 				A5404E4526809F9D009CBA6E /* Model */,
@@ -533,10 +555,12 @@
 				A52795C02680F2EB0033CDC1 /* Contents.swift in Sources */,
 				A52795B92680F2A40033CDC1 /* NetworkRouter.swift in Sources */,
 				A52795B32680F29D0033CDC1 /* Items.swift in Sources */,
+				A52795C82681C86A0033CDC1 /* ImageCacheManager.swift in Sources */,
 				A52795B82680F2A40033CDC1 /* NetworkManager.swift in Sources */,
 				A52795AC2680F2890033CDC1 /* ImageListViewModel.swift in Sources */,
 				A5404E4A26809FE0009CBA6E /* BaseViewController.swift in Sources */,
 				A52795AE2680F2910033CDC1 /* ImageListModel.swift in Sources */,
+				A52795C52681C2D30033CDC1 /* UIImageView+Ext.swift in Sources */,
 				A52795BE2680F2CD0033CDC1 /* ImageListCell.swift in Sources */,
 				A5404E0D268095D6009CBA6E /* AppDelegate.swift in Sources */,
 				A52795B22680F29D0033CDC1 /* Image.swift in Sources */,

@@ -31,23 +31,7 @@ class NetworkService: NetworkServiceType {
 
 extension NetworkService {
   private func getImageList(paramData: String, onComplete: @escaping (Result<Data, Error>) -> Void) {
-    let param = ["query": "사탕"]
-    
-    
-//    NetworkManager
-//      .shared
-//      .session
-//      .request(NetworkRouter.searchImage(params: param))
-//      .responseJSON { response in
-//        switch response.result {
-//        case let .success(data):
-//          print(data)
-//          onComplete(.success(data))
-//        case let .failure(error):
-//          print(error)
-//          onComplete(.failure(error))
-//        }
-//      }
+    let param = ["query": paramData]
     
     NetworkManager
       .shared

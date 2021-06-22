@@ -17,8 +17,9 @@ class ImageListViewController: BaseViewController {
   // MARK: - Constants
   
   struct Metric {
-    static let cellWidth = UIScreen.main.bounds.width / 3
-    static let CellHeight = UIScreen.main.bounds.height / 3
+    static let padding: CGFloat = 5
+    static let cellWidth = UIScreen.main.bounds.width / 3 - 10
+    static let CellHeight = UIScreen.main.bounds.width / 3 - 10
   }
   
   
@@ -33,11 +34,11 @@ class ImageListViewController: BaseViewController {
   let imageListView = UICollectionView(
     frame: .zero,
     collectionViewLayout: UICollectionViewFlowLayout().then {
-      $0.minimumLineSpacing = .zero
-      $0.minimumInteritemSpacing = .zero
+      $0.minimumLineSpacing = Metric.padding
+      $0.minimumInteritemSpacing = Metric.padding
       $0.scrollDirection = .vertical
-      $0.itemSize = CGSize(width: Metric.cellWidth,
-                           height: Metric.CellHeight)
+      $0.itemSize = CGSize(width: Metric.cellWidth, height: Metric.CellHeight)
+      $0.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
     }
   ).then {
     $0.backgroundColor = .blue
@@ -77,14 +78,17 @@ class ImageListViewController: BaseViewController {
       .orEmpty
       .skip(1)
       .debounce(.seconds(1), scheduler: MainScheduler.instance)
-      .distinctUntilChanged()
       .bind(to: self.viewModel.searchImage)
       .disposed(by: self.disposeBag)
     
     // OUTPUT
     self.viewModel.allImageList
-      .subscribe { imageList in
-        print(imageList)
+      .bind(to: self.imageListView.rx.items(
+              cellIdentifier: ImageListCell.CellID,
+              cellType: ImageListCell.self
+      )) {
+        _, item, cell in
+        cell.setData(image: item)
       }
       .disposed(by: self.disposeBag)
   }

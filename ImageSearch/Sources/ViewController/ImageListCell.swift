@@ -20,15 +20,15 @@ class ImageListCell: BaseCollectionViewCell {
     $0.contentMode = .scaleAspectFill
   }
   
-  func setData(image: UIImage) {
-    self.imageView.image = image
+  func setData(image: Image) {
+    self.imageView.setImage(image.thumbnailURL)
   }
   
   override func setupConstraints() {
     self.contentView.addSubview(self.imageView)
     
     self.imageView.snp.makeConstraints {
-      $0.edges.equalToSuperview()
+      $0.top.leading.trailing.bottom.equalToSuperview()
     }
   }
 }

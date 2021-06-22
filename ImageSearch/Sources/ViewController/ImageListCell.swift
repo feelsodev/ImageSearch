@@ -28,7 +28,7 @@ final class ImageListCell: BaseCollectionViewCell {
     self.contentView.addSubview(self.imageView)
     
     self.imageView.snp.makeConstraints {
-      $0.top.leading.trailing.bottom.equalToSuperview()
+      $0.edges.equalToSuperview()
     }
   }
 }

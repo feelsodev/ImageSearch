@@ -128,6 +128,17 @@ final class ImageListViewController: BaseViewController {
         self.imageListView.alpha = state ? 0 : 1
       })
       .disposed(by: self.disposeBag)
+    
+    self.viewModel.loadingState
+      .subscribe(onNext: { [weak self] state in
+        guard let `self` = self else { return }
+        if state {
+          self.loadingActivity.stopAnimating()
+        } else {
+          self.loadingActivity.startAnimating()
+        }
+      })
+      .disposed(by: self.disposeBag)
   }
   
   override func setupConstraints() {

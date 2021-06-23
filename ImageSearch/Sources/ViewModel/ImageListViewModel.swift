@@ -73,7 +73,10 @@ final class ImageListViewModel: ImageListViewModelType {
     
     emptyState
       .subscribe(onNext: { state in
-        if state { model.propertyReste() }
+        if state {
+          model.propertyReste()
+          imageList.accept([])
+        }
       })
       .disposed(by: self.disposeBag)
     

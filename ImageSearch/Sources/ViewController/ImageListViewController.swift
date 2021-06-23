@@ -27,7 +27,9 @@ final class ImageListViewController: BaseViewController {
   
   
   // MARK: - UI
-  
+  let loadingActivity = UIActivityIndicatorView().then {
+    $0.hidesWhenStopped = true
+  }
   let searchController = UISearchController(searchResultsController: nil).then {
     $0.obscuresBackgroundDuringPresentation = false
     $0.hidesNavigationBarDuringPresentation = false
@@ -121,9 +123,10 @@ final class ImageListViewController: BaseViewController {
       .disposed(by: self.disposeBag)
     
     self.viewModel.imageListCellState
-      .subscribe { [weak self] state in
-        self?.imageListView.alpha = state ? 0 : 1
-      }
+      .subscribe(onNext: { [weak self] state in
+        guard let `self` = self else { return }
+        self.imageListView.alpha = state ? 0 : 1
+      })
       .disposed(by: self.disposeBag)
   }
   

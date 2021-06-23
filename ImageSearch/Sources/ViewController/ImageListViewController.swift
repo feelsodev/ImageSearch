@@ -78,7 +78,7 @@ final class ImageListViewController: BaseViewController {
   override func bind() {
     
     // UI CONTROL
-    self.imageListView.rx.didScroll
+    self.imageListView.rx.willBeginDragging
       .subscribe { [weak self] _ in
         guard let `self` = self else { return }
         self.searchController.searchBar.endEditing(true)

@@ -8,14 +8,15 @@ import Foundation
 import RxSwift
 
 protocol ImageListFetchable: AnyObject {
+  func propertyReste()
   func fetchImageList(param: String) -> Observable<[Image]>
   func nextPageImageList() -> Observable<[Image]>
 }
 
 final class ImageListModel: ImageListFetchable {
   let repository: NetworkServiceType
-  var pageState: Int = 1
-  var paramState: String = ""
+  private var pageState: Int = 1
+  private var paramState: String = ""
   
   init(repository: NetworkServiceType = NetworkService()) {
     self.repository = repository
@@ -46,5 +47,10 @@ final class ImageListModel: ImageListFetchable {
         
         return response.items
       }
+  }
+  
+  func propertyReste() {
+    self.pageState = 1
+    self.paramState = ""
   }
 }

@@ -11,7 +11,7 @@ final class ImageListCell: BaseCollectionViewCell {
   
   // MARK: - Property
   
-  static let CellID = "CellID"
+  static let CellID = "ImageListCellID"
   
   
   // MARK: - UI
@@ -20,9 +20,15 @@ final class ImageListCell: BaseCollectionViewCell {
     $0.contentMode = .scaleAspectFill
   }
   
+  
+  // MARK: - SetData
+  
   func setData(image: Image) {
     self.imageView.setImage(image.thumbnailURL)
   }
+  
+  
+  // MARK: - SetupConstraints
   
   override func setupConstraints() {
     self.contentView.addSubview(self.imageView)

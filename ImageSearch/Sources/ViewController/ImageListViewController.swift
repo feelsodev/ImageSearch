@@ -12,8 +12,6 @@ import SnapKit
 
 final class ImageListViewController: BaseViewController {
   
-  
-  
   // MARK: - Constants
   
   struct Metric {
@@ -30,7 +28,11 @@ final class ImageListViewController: BaseViewController {
   
   // MARK: - UI
   
-  let searchController = UISearchController(searchResultsController: nil)
+  let searchController = UISearchController(searchResultsController: nil).then {
+    $0.obscuresBackgroundDuringPresentation = false
+    $0.hidesNavigationBarDuringPresentation = false
+    $0.definesPresentationContext = true
+  }
   let imageListView = UICollectionView(
     frame: .zero,
     collectionViewLayout: UICollectionViewFlowLayout().then {
@@ -41,11 +43,8 @@ final class ImageListViewController: BaseViewController {
       $0.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
     }
   ).then {
-    $0.backgroundColor = .blue
-    $0.register(
-      ImageListCell.self,
-      forCellWithReuseIdentifier: ImageListCell.CellID
-    )
+    $0.backgroundColor = .white
+    $0.register(ImageListCell.self, forCellWithReuseIdentifier: ImageListCell.CellID)
   }
   
   
@@ -65,6 +64,9 @@ final class ImageListViewController: BaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    self.navigationItem.largeTitleDisplayMode = .always
+    self.navigationItem.title = "이미지 검색"
+    self.navigationItem.hidesSearchBarWhenScrolling = false
     self.navigationItem.searchController = self.searchController
   }
   
@@ -73,33 +75,71 @@ final class ImageListViewController: BaseViewController {
   
   override func bind() {
     
+    // UI CONTROL
+    self.imageListView.rx.didScroll
+      .subscribe { [weak self] _ in
+        guard let `self` = self else { return }
+        self.searchController.searchBar.endEditing(true)
+      }
+      .disposed(by: self.disposeBag)
+    
     // INPUT
-    self.searchController.searchBar.rx.text
+    let searchBarOb = self.searchController.searchBar.rx.text
       .orEmpty
       .skip(1)
+      .share()
+    
+    searchBarOb
       .debounce(.seconds(1), scheduler: MainScheduler.instance)
       .bind(to: self.viewModel.searchImage)
+      .disposed(by: self.disposeBag)
+    
+    searchBarOb
+      .map { $0.isEmpty }
+      .bind(to: self.viewModel.searchEmptyState)
+      .disposed(by: self.disposeBag)
+        
+    self.imageListView.rx.contentOffset
+      .filter { [weak self] offset in
+        guard let `self` = self else { return false }
+        guard self.imageListView.frame.height > 0 else { return false }
+        return offset.y + self.imageListView.frame.height >= self.imageListView.contentSize.height - 100
+      }
+      .map { _ in }
+      .bind(to: self.viewModel.nextPageImage)
       .disposed(by: self.disposeBag)
     
     // OUTPUT
     self.viewModel.allImageList
       .bind(to: self.imageListView.rx.items(
-              cellIdentifier: ImageListCell.CellID,
-              cellType: ImageListCell.self
+        cellIdentifier: ImageListCell.CellID,
+        cellType: ImageListCell.self
       )) {
         _, item, cell in
         cell.setData(image: item)
+      }
+      .disposed(by: self.disposeBag)
+    
+    self.viewModel.imageListCellState
+      .subscribe { [weak self] state in
+        self?.imageListView.alpha = state ? 0 : 1
       }
       .disposed(by: self.disposeBag)
   }
   
   override func setupConstraints() {
     self.view.addSubview(self.imageListView)
+    self.view.addSubview(self.loadingActivity)
+    self.view.bringSubviewToFront(self.loadingActivity)
     
     self.imageListView.snp.makeConstraints {
       $0.top.equalTo(self.view.safeAreaLayoutGuide.snp.top)
       $0.leading.trailing.equalToSuperview()
       $0.bottom.equalTo(self.view.safeAreaLayoutGuide.snp.bottom)
+    }
+    
+    self.loadingActivity.snp.makeConstraints {
+      $0.centerX.centerY.equalToSuperview()
     }
   }
 }

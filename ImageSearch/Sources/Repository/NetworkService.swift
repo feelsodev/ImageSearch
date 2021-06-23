@@ -9,13 +9,13 @@ import Foundation
 import RxSwift
 
 protocol NetworkServiceType {
-  func getImageListRx(param: String) -> Observable<Data>
+  func getImageListRx(param: String, page: Int) -> Observable<Data>
 }
 
 final class NetworkService: NetworkServiceType {
-  func getImageListRx(param: String) -> Observable<Data> {
+  func getImageListRx(param: String, page: Int) -> Observable<Data> {
     return Observable.create { observer in
-      self.getImageList(paramData: param) { result in
+      self.getImageList(paramData: param, page: page) { result in
         switch result {
         case let .success(data):
           observer.onNext(data)
@@ -30,13 +30,13 @@ final class NetworkService: NetworkServiceType {
 }
 
 extension NetworkService {
-  private func getImageList(paramData: String, onComplete: @escaping (Result<Data, Error>) -> Void) {
+  private func getImageList(paramData: String, page: Int, onComplete: @escaping (Result<Data, Error>) -> Void) {
     let param: [String: Any] = [
       "query": paramData,
-      "page": 1,
+      "page": page,
       "size": 30
     ]
-    
+        
     NetworkManager
       .shared
       .session

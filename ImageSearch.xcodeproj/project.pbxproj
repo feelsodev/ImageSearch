@@ -150,6 +150,14 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
+		A52795CA268211BC0033CDC1 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				A52795BD2680F2CD0033CDC1 /* ImageListCell.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
 		A5404E00268095D6009CBA6E = {
 			isa = PBXGroup;
 			children = (
@@ -231,9 +239,9 @@
 		A5404E4226809F2F009CBA6E /* View */ = {
 			isa = PBXGroup;
 			children = (
-				A52795BD2680F2CD0033CDC1 /* ImageListCell.swift */,
-				A5404E10268095D6009CBA6E /* ImageListViewController.swift */,
 				A5404E4826809FC6009CBA6E /* BaseComponent */,
+				A52795CA268211BC0033CDC1 /* Component */,
+				A5404E10268095D6009CBA6E /* ImageListViewController.swift */,
 			);
 			name = View;
 			path = ViewController;

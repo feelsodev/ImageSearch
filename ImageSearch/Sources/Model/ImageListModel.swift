@@ -8,7 +8,7 @@ import Foundation
 import RxSwift
 
 protocol ImageListFetchable: AnyObject {
-  func propertyReste()
+  func propertyReset()
   func fetchImageList(param: String) -> Observable<[Image]>
   func nextPageImageList() -> Observable<[Image]>
 }
@@ -49,7 +49,7 @@ final class ImageListModel: ImageListFetchable {
       }
   }
   
-  func propertyReste() {
+  func propertyReset() {
     self.pageState = 1
     self.paramState = ""
   }

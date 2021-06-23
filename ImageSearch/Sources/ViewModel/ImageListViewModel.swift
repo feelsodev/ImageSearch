@@ -56,6 +56,7 @@ final class ImageListViewModel: ImageListViewModelType {
       .subscribe(onNext: { image in
         imageList.accept(image)
         imageListShowing.onNext(false)
+        loading.accept(true)
       })
       .disposed(by: self.disposeBag)
     
@@ -66,7 +67,6 @@ final class ImageListViewModel: ImageListViewModelType {
       .flatMap(model.nextPageImageList)
       .subscribe(onNext: { image in
         imageList.accept(imageList.value + image)
-        loading.accept(true)
       })
       .disposed(by: self.disposeBag)
     
@@ -75,9 +75,9 @@ final class ImageListViewModel: ImageListViewModelType {
     emptyState
       .subscribe(onNext: { state in
         if state {
-          model.propertyReste()
-          imageList.accept([])
+          model.propertyReset()
         }
+        imageList.accept([])
         loading.accept(state)
         imageListShowing.onNext(state)
       })

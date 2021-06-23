@@ -100,7 +100,7 @@ final class ImageListViewController: BaseViewController {
       .map { $0.isEmpty }
       .bind(to: self.viewModel.searchEmptyState)
       .disposed(by: self.disposeBag)
-        
+    
     self.imageListView.rx.contentOffset
       .filter { [weak self] offset in
         guard let `self` = self else { return false }

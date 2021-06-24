@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 import RxRelay
 
 protocol ImageListViewModelInput {
@@ -43,31 +44,64 @@ final class ImageListViewModel: ImageListViewModelType {
     let emptyState = PublishSubject<Bool>()
     
     let imageList = BehaviorRelay<[Image]>(value: [])
-    let imageListShowing = BehaviorSubject<Bool>(value: false)
+    let imageListShowing = BehaviorRelay<Bool>(value: false)
     let loading = PublishRelay<Bool>()
+    
+    // Materials
+    
+    let page = PublishRelay<Int>()
+    let isEnd = PublishRelay<Bool>()
+    let valuesForSearch = Observable
+      .combineLatest(
+        page,
+        searchingImage
+      )
+      .filter { $1 != "" }
     
     // INPUT
     
     self.searchImage = searchingImage.asObserver()
     
-    searchingImage
+    let imageResult = searchingImage
       .filter { !$0.isEmpty }
-      .flatMap(model.fetchImageList)
+      .do { _ in page.accept(1) }
+      .flatMap { model.fetchImageList(page: 1, param: $0) }
+      .share()
+      
+    imageResult
+      .map { $0.items }
       .subscribe(onNext: { image in
         imageList.accept(image)
-        imageListShowing.onNext(false)
+        imageListShowing.accept(false)
         loading.accept(true)
       })
       .disposed(by: self.disposeBag)
     
+    imageResult
+      .map { $0.meta.isEnd }
+      .bind(to: isEnd)
+      .disposed(by: self.disposeBag)
+    
     self.nextPageImage = nextPageImage.asObserver()
     
-    nextPageImage
-      .skip(1)
-      .flatMap(model.nextPageImageList)
-      .subscribe(onNext: { image in
+    let additionalFetchImage = Observable
+      .zip(nextPageImage, isEnd)
+      .filter { !$1 }
+      .withLatestFrom(valuesForSearch)
+      .debug()
+      .map { (pg, key) -> (Int, String) in
+        let newPage = pg + 1
+        newPage >= 10 ? isEnd.accept(true) : isEnd.accept(false)
+        page.accept(newPage)
+        return (newPage, key)
+      }
+      .flatMapLatest(model.fetchImageList)
+    
+    additionalFetchImage
+      .map { $0.items }
+      .subscribe { image in
         imageList.accept(imageList.value + image)
-      })
+      }
       .disposed(by: self.disposeBag)
     
     self.searchEmptyState = emptyState.asObserver()
@@ -75,11 +109,11 @@ final class ImageListViewModel: ImageListViewModelType {
     emptyState
       .subscribe(onNext: { state in
         if state {
-          model.propertyReset()
+          page.accept(1)
         }
         imageList.accept([])
         loading.accept(state)
-        imageListShowing.onNext(state)
+        imageListShowing.accept(state)
       })
       .disposed(by: self.disposeBag)
     

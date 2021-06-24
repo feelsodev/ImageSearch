@@ -130,4 +130,14 @@ final class ImageListViewModel: ImageListViewModelType {
     self.loadingState = loading.asObservable()
     self.cellBackgroundState = cellBG.asObservable()
   }
+  
+  
+  // MARK: - Return VC
+  
+  static func createForImageDetail(_ image: Image) -> UIViewController {
+    let view = ImageDetailViewController()
+    view.modalPresentationStyle = .fullScreen
+    view.setData(image)
+    return view
+  }
 }

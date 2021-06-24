@@ -14,9 +14,7 @@ target 'ImageSearch' do
   # Rx
   pod 'RxSwift'
   pod 'RxCocoa'
-  pod 'RxDataSources'
-  pod 'RxOptional'
-  pod 'RxViewController'
+  pod 'RxGesture'
 
   # Etc
   pod 'Then'

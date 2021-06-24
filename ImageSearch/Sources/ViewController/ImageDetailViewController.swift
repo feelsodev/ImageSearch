@@ -25,7 +25,7 @@ final class ImageDetailViewController: BaseViewController {
   let bottomStatusView = ImageDetailBottomView()
   
   
-  // MARK: - Status Bar handle variable
+  // MARK: - System StatusBar handle variable
   
   override var prefersStatusBarHidden: Bool {
     return !self.statusState
@@ -34,6 +34,15 @@ final class ImageDetailViewController: BaseViewController {
     return .fade
   }
   
+  
+  // MARK: - Status value setting
+  
+  func setData(_ image: Image) {
+    self.bottomStatusView.do {
+      $0.displaySiteNameLabel.text = image.displaySitename
+      $0.dateTimeLabel.text = image.datetime
+    }
+  }
   
   // MARK: - ViewDidLoad
   
@@ -83,6 +92,9 @@ final class ImageDetailViewController: BaseViewController {
     }
   }
 }
+
+
+// MARK: - StatusBar Handling
 
 extension ImageDetailViewController {
   private func statusBarHandle() {

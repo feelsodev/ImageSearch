@@ -19,6 +19,7 @@ protocol ImageListViewModelInput {
 protocol ImageListViewModelOutput {
   var allImageList: Observable<[Image]> { get }
   var loadingState: Observable<LoadingState> { get }
+  var cellBackgroundState: Observable<DescriptState> { get }
 }
 
 protocol ImageListViewModelType: ImageListViewModelInput, ImageListViewModelOutput {}
@@ -34,6 +35,7 @@ final class ImageListViewModel: ImageListViewModelType {
   // OUTPUT
   let allImageList: Observable<[Image]>
   let loadingState: Observable<LoadingState>
+  let cellBackgroundState: Observable<DescriptState>
   
   init(model: ImageListFetchable = ImageListModel()) {
     
@@ -43,6 +45,7 @@ final class ImageListViewModel: ImageListViewModelType {
     
     let imageList = BehaviorRelay<[Image]>(value: [])
     let loading = PublishRelay<LoadingState>()
+    let cellBG = BehaviorRelay<DescriptState>(value: .empty)
     
     // Materials
     
@@ -68,6 +71,11 @@ final class ImageListViewModel: ImageListViewModelType {
     imageResult
       .map { $0.items }
       .subscribe(onNext: { image in
+        if image.isEmpty {
+          cellBG.accept(.error)
+        } else {
+          cellBG.accept(.finish)
+        }
         imageList.accept(image)
         loading.accept(.finished)
       })
@@ -108,8 +116,10 @@ final class ImageListViewModel: ImageListViewModelType {
         if state {
           page.accept(1)
           loading.accept(.empty)
+          cellBG.accept(.empty)
         } else {
           loading.accept(.loading)
+          cellBG.accept(.loading)
         }
       })
       .disposed(by: self.disposeBag)
@@ -118,5 +128,6 @@ final class ImageListViewModel: ImageListViewModelType {
     
     self.allImageList = imageList.asObservable()
     self.loadingState = loading.asObservable()
+    self.cellBackgroundState = cellBG.asObservable()
   }
 }

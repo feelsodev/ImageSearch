@@ -123,6 +123,13 @@ final class ImageListViewController: BaseViewController {
     self.viewModel.loadingState
       .subscribe(onNext: self.loadingStateHandle)
       .disposed(by: self.disposeBag)
+    
+    self.viewModel.cellBackgroundState
+      .subscribe(onNext: { [weak self] state in
+        guard let `self` = self else { return }
+        self.imageListView.setDescriptView(type: state)
+      })
+      .disposed(by: self.disposeBag)
   }
   
   override func setupConstraints() {
@@ -152,7 +159,7 @@ extension ImageListViewController {
       self.imageListView.alpha = 1
       self.loadingActivity.stopAnimating()
     case .empty:
-      self.imageListView.alpha = 0
+      self.imageListView.alpha = 1
       self.loadingActivity.stopAnimating()
     case .error:
       self.imageListView.alpha = 0

@@ -22,7 +22,7 @@ class ImageDetailTopView: UIView {
   
   init() {
     super.init(frame: CGRect.zero)
-    self.backgroundColor = .systemGray2
+    self.backgroundColor = #colorLiteral(red: 0.8503718341, green: 0.8492820702, blue: 0.8683175312, alpha: 1)
     self.setupConstraints()
   }
   

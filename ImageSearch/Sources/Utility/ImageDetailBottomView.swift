@@ -12,11 +12,11 @@ class ImageDetailBottomView: UIView {
   // MARK: - UI
   
   let displaySiteNameLabel = UILabel().then {
-    $0.text = "하하"
+    $0.textAlignment = .right
     $0.textColor = .systemBlue
   }
   let dateTimeLabel = UILabel().then {
-    $0.text = "하하"
+    $0.textAlignment = .right
     $0.textColor = .systemBlue
   }
   lazy var stackView = UIStackView().then {
@@ -30,7 +30,7 @@ class ImageDetailBottomView: UIView {
   
   init() {
     super.init(frame: CGRect.zero)
-    self.backgroundColor = .systemGray2
+    self.backgroundColor = #colorLiteral(red: 0.8503718341, green: 0.8492820702, blue: 0.8683175312, alpha: 1)
     self.setupConstraints()
   }
   
@@ -42,7 +42,7 @@ class ImageDetailBottomView: UIView {
     self.addSubview(self.stackView)
     self.stackView.snp.makeConstraints {
       $0.top.equalToSuperview().offset(5)
-      $0.centerX.equalToSuperview()
+      $0.trailing.equalToSuperview().offset(-10)
     }
   }
 }

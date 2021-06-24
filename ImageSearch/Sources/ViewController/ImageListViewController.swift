@@ -109,6 +109,14 @@ final class ImageListViewController: BaseViewController {
       .bind(to: viewModel.nextPageImage)
       .disposed(by: disposeBag)
     
+    self.imageListView.rx.modelSelected(Image.self)
+      .map(ImageListViewModel.createForImageDetail)
+      .subscribe(onNext: { [weak self] vc in
+        guard let `self` = self else { return }
+        self.present(vc, animated: true, completion: nil)
+      })
+      .disposed(by: self.disposeBag)
+    
     // OUTPUT
     self.viewModel.allImageList
       .bind(to: self.imageListView.rx.items(

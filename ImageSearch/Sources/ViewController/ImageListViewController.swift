@@ -46,6 +46,7 @@ final class ImageListViewController: BaseViewController {
     }
   ).then {
     $0.backgroundColor = .white
+    $0.keyboardDismissMode = .interactive
     $0.register(ImageListCell.self, forCellWithReuseIdentifier: ImageListCell.CellID)
   }
   
@@ -78,7 +79,7 @@ final class ImageListViewController: BaseViewController {
   override func bind() {
     
     // UI CONTROL
-    self.imageListView.rx.willBeginDragging
+    self.imageListView.rx.didScroll
       .subscribe { [weak self] _ in
         guard let `self` = self else { return }
         self.searchController.searchBar.endEditing(true)
@@ -88,6 +89,7 @@ final class ImageListViewController: BaseViewController {
     // INPUT
     let searchBarOb = self.searchController.searchBar.rx.text
       .orEmpty
+      .distinctUntilChanged()
       .skip(1)
       .share()
     
@@ -101,15 +103,11 @@ final class ImageListViewController: BaseViewController {
       .bind(to: self.viewModel.searchEmptyState)
       .disposed(by: self.disposeBag)
     
-    self.imageListView.rx.contentOffset
-      .filter { [weak self] offset in
-        guard let `self` = self else { return false }
-        guard self.imageListView.frame.height > 0 else { return false }
-        return offset.y + self.imageListView.frame.height >= self.imageListView.contentSize.height - 100
-      }
+    self.imageListView.rx.needToFetchMoreData
+      .filter { $0 }
       .map { _ in }
-      .bind(to: self.viewModel.nextPageImage)
-      .disposed(by: self.disposeBag)
+      .bind(to: viewModel.nextPageImage)
+      .disposed(by: disposeBag)
     
     // OUTPUT
     self.viewModel.allImageList

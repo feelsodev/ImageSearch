@@ -20,7 +20,7 @@ final class ImageDetailViewController: BaseViewController {
   // MARK: - UI
   
   let detailImageView = UIImageView().then {
-    $0.contentMode = .scaleAspectFit
+    $0.contentMode = .scaleAspectFill
   }
   let scrollView = UIScrollView()
   let topStatusView = ImageDetailTopView()

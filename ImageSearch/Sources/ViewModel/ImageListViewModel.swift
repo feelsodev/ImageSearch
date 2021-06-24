@@ -18,8 +18,7 @@ protocol ImageListViewModelInput {
 
 protocol ImageListViewModelOutput {
   var allImageList: Observable<[Image]> { get }
-  var imageListCellState: Observable<Bool> { get }
-  var loadingState: Observable<Bool> { get }
+  var loadingState: Observable<LoadingState> { get }
 }
 
 protocol ImageListViewModelType: ImageListViewModelInput, ImageListViewModelOutput {}
@@ -34,8 +33,7 @@ final class ImageListViewModel: ImageListViewModelType {
   
   // OUTPUT
   let allImageList: Observable<[Image]>
-  let imageListCellState: Observable<Bool>
-  let loadingState: Observable<Bool>
+  let loadingState: Observable<LoadingState>
   
   init(model: ImageListFetchable = ImageListModel()) {
     
@@ -44,8 +42,7 @@ final class ImageListViewModel: ImageListViewModelType {
     let emptyState = PublishSubject<Bool>()
     
     let imageList = BehaviorRelay<[Image]>(value: [])
-    let imageListShowing = BehaviorRelay<Bool>(value: false)
-    let loading = PublishRelay<Bool>()
+    let loading = PublishRelay<LoadingState>()
     
     // Materials
     
@@ -72,8 +69,7 @@ final class ImageListViewModel: ImageListViewModelType {
       .map { $0.items }
       .subscribe(onNext: { image in
         imageList.accept(image)
-        imageListShowing.accept(false)
-        loading.accept(true)
+        loading.accept(.finished)
       })
       .disposed(by: self.disposeBag)
     
@@ -107,19 +103,20 @@ final class ImageListViewModel: ImageListViewModelType {
     
     emptyState
       .subscribe(onNext: { state in
+        imageList.accept([])
+        
         if state {
           page.accept(1)
+          loading.accept(.empty)
+        } else {
+          loading.accept(.loading)
         }
-        imageList.accept([])
-        loading.accept(state)
-        imageListShowing.accept(state)
       })
       .disposed(by: self.disposeBag)
     
     // OUTPUT
     
     self.allImageList = imageList.asObservable()
-    self.imageListCellState = imageListShowing.asObservable()
     self.loadingState = loading.asObservable()
   }
 }

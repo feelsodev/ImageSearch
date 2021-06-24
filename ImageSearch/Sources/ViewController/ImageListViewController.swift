@@ -120,12 +120,8 @@ final class ImageListViewController: BaseViewController {
       }
       .disposed(by: self.disposeBag)
     
-    self.viewModel.imageListCellState
-      .subscribe(onNext: self.imageListAlphaHandle)
-      .disposed(by: self.disposeBag)
-    
     self.viewModel.loadingState
-      .subscribe(onNext: self.loadingActivityHandle)
+      .subscribe(onNext: self.loadingStateHandle)
       .disposed(by: self.disposeBag)
   }
   
@@ -147,15 +143,20 @@ final class ImageListViewController: BaseViewController {
 }
 
 extension ImageListViewController {
-  private func imageListAlphaHandle(_ state: Bool) {
-    self.imageListView.alpha = state ? 0 : 1
-  }
-  
-  private func loadingActivityHandle(_ state: Bool) {
-    if state {
-      self.loadingActivity.stopAnimating()
-    } else {
+  private func loadingStateHandle(_ state: LoadingState) {
+    switch state {
+    case .loading:
+      self.imageListView.alpha = 0
       self.loadingActivity.startAnimating()
+    case .finished:
+      self.imageListView.alpha = 1
+      self.loadingActivity.stopAnimating()
+    case .empty:
+      self.imageListView.alpha = 0
+      self.loadingActivity.stopAnimating()
+    case .error:
+      self.imageListView.alpha = 0
+      self.loadingActivity.stopAnimating()
     }
   }
 }

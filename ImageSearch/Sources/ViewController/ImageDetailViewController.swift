@@ -40,7 +40,7 @@ final class ImageDetailViewController: BaseViewController {
   func setData(_ image: Image) {
     self.bottomStatusView.do {
       $0.displaySiteNameLabel.text = image.displaySitename
-      $0.dateTimeLabel.text = image.datetime
+      $0.dateTimeLabel.text = image.datetime.toDate
     }
   }
   
@@ -112,3 +112,4 @@ extension ImageDetailViewController {
     }
   }
 }
+

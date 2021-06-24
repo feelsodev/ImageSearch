@@ -19,7 +19,9 @@ final class ImageDetailViewController: BaseViewController {
   
   // MARK: - UI
   
-  let detailImageView = UIImageView()
+  let detailImageView = UIImageView().then {
+    $0.contentMode = .scaleAspectFit
+  }
   let scrollView = UIScrollView()
   let topStatusView = ImageDetailTopView()
   let bottomStatusView = ImageDetailBottomView()
@@ -38,6 +40,7 @@ final class ImageDetailViewController: BaseViewController {
   // MARK: - Status value setting
   
   func setData(_ image: Image) {
+    self.detailImageView.setImage(image.imageURL)
     self.bottomStatusView.do {
       $0.displaySiteNameLabel.text = image.displaySitename
       $0.dateTimeLabel.text = image.datetime.toDate
@@ -63,6 +66,12 @@ final class ImageDetailViewController: BaseViewController {
       .map { _ in }
       .subscribe(onNext: self.statusBarHandle)
       .disposed(by: self.disposeBag)
+    
+    self.topStatusView.backButton.rx.tap
+      .subscribe { [weak self] _ in
+        self?.dismiss(animated: true, completion: nil)
+      }
+      .disposed(by: self.disposeBag)
   }
   
   
@@ -72,6 +81,8 @@ final class ImageDetailViewController: BaseViewController {
     [self.topStatusView, self.bottomStatusView, self.scrollView]
       .forEach { self.view.addSubview($0) }
     self.scrollView.addSubview(self.detailImageView)
+    self.view.bringSubviewToFront(self.topStatusView)
+    self.view.bringSubviewToFront(self.bottomStatusView)
     
     self.scrollView.snp.makeConstraints {
       $0.edges.equalToSuperview()
@@ -103,13 +114,15 @@ extension ImageDetailViewController {
       UIView.animateFadeIn([self.topStatusView, self.bottomStatusView])
       UIView.animate(withDuration: 0.2, animations: {
         self.setNeedsStatusBarAppearanceUpdate()
+        self.view.backgroundColor = .white
       })
     } else {
       UIView.animateFadeOut([self.topStatusView, self.bottomStatusView])
       UIView.animate(withDuration: 0.2, animations: {
         self.setNeedsStatusBarAppearanceUpdate()
+        self.view.backgroundColor = .black
       })
+      
     }
   }
 }
-

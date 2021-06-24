@@ -88,10 +88,9 @@ final class ImageListViewModel: ImageListViewModelType {
       .zip(nextPageImage, isEnd)
       .filter { !$1 }
       .withLatestFrom(valuesForSearch)
-      .debug()
       .map { (pg, key) -> (Int, String) in
         let newPage = pg + 1
-        newPage >= 10 ? isEnd.accept(true) : isEnd.accept(false)
+        newPage >= 50 ? isEnd.accept(true) : isEnd.accept(false)
         page.accept(newPage)
         return (newPage, key)
       }

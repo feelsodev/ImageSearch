@@ -121,21 +121,11 @@ final class ImageListViewController: BaseViewController {
       .disposed(by: self.disposeBag)
     
     self.viewModel.imageListCellState
-      .subscribe(onNext: { [weak self] state in
-        guard let `self` = self else { return }
-        self.imageListView.alpha = state ? 0 : 1
-      })
+      .subscribe(onNext: self.imageListAlphaHandle)
       .disposed(by: self.disposeBag)
     
     self.viewModel.loadingState
-      .subscribe(onNext: { [weak self] state in
-        guard let `self` = self else { return }
-        if state {
-          self.loadingActivity.stopAnimating()
-        } else {
-          self.loadingActivity.startAnimating()
-        }
-      })
+      .subscribe(onNext: self.loadingActivityHandle)
       .disposed(by: self.disposeBag)
   }
   
@@ -152,6 +142,20 @@ final class ImageListViewController: BaseViewController {
     
     self.loadingActivity.snp.makeConstraints {
       $0.centerX.centerY.equalToSuperview()
+    }
+  }
+}
+
+extension ImageListViewController {
+  private func imageListAlphaHandle(_ state: Bool) {
+    self.imageListView.alpha = state ? 0 : 1
+  }
+  
+  private func loadingActivityHandle(_ state: Bool) {
+    if state {
+      self.loadingActivity.stopAnimating()
+    } else {
+      self.loadingActivity.startAnimating()
     }
   }
 }

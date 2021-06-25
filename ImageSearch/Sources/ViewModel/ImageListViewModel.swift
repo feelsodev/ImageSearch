@@ -9,6 +9,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 import RxRelay
+import RxOptional
 
 protocol ImageListViewModelInput {
   var searchImage: AnyObserver<String> { get }
@@ -20,6 +21,7 @@ protocol ImageListViewModelOutput {
   var allImageList: Observable<[Image]> { get }
   var loadingState: Observable<LoadingState> { get }
   var cellBackgroundState: Observable<DescriptState> { get }
+  var errorMessage: Observable<String> { get }
 }
 
 protocol ImageListViewModelType: ImageListViewModelInput, ImageListViewModelOutput {}
@@ -36,6 +38,7 @@ final class ImageListViewModel: ImageListViewModelType {
   let allImageList: Observable<[Image]>
   let loadingState: Observable<LoadingState>
   let cellBackgroundState: Observable<DescriptState>
+  let errorMessage: Observable<String>
   
   init(model: ImageListFetchable = ImageListModel()) {
     
@@ -46,7 +49,8 @@ final class ImageListViewModel: ImageListViewModelType {
     let imageList = BehaviorRelay<[Image]>(value: [])
     let loading = PublishRelay<LoadingState>()
     let cellBG = BehaviorRelay<DescriptState>(value: .empty)
-    
+    let errorMessageProxy = PublishSubject<String>()
+      
     // Materials
     
     let page = PublishRelay<Int>()
@@ -69,7 +73,13 @@ final class ImageListViewModel: ImageListViewModelType {
       .share()
       
     imageResult
-      .map { $0.items }
+      .map { data -> [Image]? in
+        guard case .success(let value) = data else {
+            return nil
+        }
+        return value.items
+      }
+      .filterNil()
       .subscribe(onNext: { image in
         if image.isEmpty {
           cellBG.accept(.error)
@@ -82,8 +92,25 @@ final class ImageListViewModel: ImageListViewModelType {
       .disposed(by: self.disposeBag)
     
     imageResult
-      .map { $0.meta.isEnd }
+      .map { data -> Bool? in
+        guard case .success(let value) = data else {
+            return nil
+        }
+        return value.meta.isEnd
+      }
+      .filterNil()
       .bind(to: isEnd)
+      .disposed(by: self.disposeBag)
+    
+    imageResult
+      .map { data -> String? in
+        guard case .failure(let error) = data else {
+            return nil
+        }
+        return error.message
+      }
+      .filterNil()
+      .bind(to: errorMessageProxy)
       .disposed(by: self.disposeBag)
     
     self.nextPageImage = nextPageImage.asObserver()
@@ -101,7 +128,13 @@ final class ImageListViewModel: ImageListViewModelType {
       .flatMapLatest(model.fetchImageList)
     
     additionalFetchImage
-      .map { $0.items }
+      .map { data -> [Image]? in
+        guard case .success(let value) = data else {
+            return nil
+        }
+        return value.items
+      }
+      .filterNil()
       .subscribe { image in
         imageList.accept(imageList.value + image)
       }
@@ -129,6 +162,7 @@ final class ImageListViewModel: ImageListViewModelType {
     self.allImageList = imageList.asObservable()
     self.loadingState = loading.asObservable()
     self.cellBackgroundState = cellBG.asObservable()
+    self.errorMessage = errorMessageProxy.asObservable()
   }
   
   

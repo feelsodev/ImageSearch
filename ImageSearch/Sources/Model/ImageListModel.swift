@@ -8,7 +8,7 @@ import Foundation
 import RxSwift
 
 protocol ImageListFetchable: AnyObject {
-  func fetchImageList(page: Int, param: String) -> Observable<Items>
+  func fetchImageList(page: Int, param: String) -> Observable<Result<Items, NetworkError>>
 }
 
 final class ImageListModel: ImageListFetchable {
@@ -18,14 +18,7 @@ final class ImageListModel: ImageListFetchable {
     self.repository = repository
   }
   
-  func fetchImageList(page: Int, param: String) -> Observable<Items> {
-
+  func fetchImageList(page: Int, param: String) -> Observable<Result<Items, NetworkError>> {
     return self.repository.getImageListRx(param: param, page: page)
-      .map { data in
-        guard let response = try? JSONDecoder().decode(Items.self, from: data) else {
-          throw NSError(domain: "Fetch Image Decoding error", code: -1, userInfo: nil)
-        }
-        return response
-      }
   }
 }

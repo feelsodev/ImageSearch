@@ -9,20 +9,15 @@ import Foundation
 import RxSwift
 
 protocol NetworkServiceType {
-  func getImageListRx(param: String, page: Int) -> Observable<Data>
+  func getImageListRx(param: String, page: Int) -> Observable<Result<Items, NetworkError>>
 }
 
 final class NetworkService: NetworkServiceType {
-  func getImageListRx(param: String, page: Int) -> Observable<Data> {
+  func getImageListRx(param: String, page: Int) -> Observable<Result<Items, NetworkError>> {
     return Observable.create { observer in
       self.getImageList(paramData: param, page: page) { result in
-        switch result {
-        case let .success(data):
-          observer.onNext(data)
-          observer.onCompleted()
-        case let .failure(error):
-          observer.onError(error)
-        }
+        observer.onNext(result)
+        observer.onCompleted()
       }
       return Disposables.create()
     }
@@ -30,7 +25,7 @@ final class NetworkService: NetworkServiceType {
 }
 
 extension NetworkService {
-  private func getImageList(paramData: String, page: Int, onComplete: @escaping (Result<Data, Error>) -> Void) {
+  private func getImageList(paramData: String, page: Int, onComplete: @escaping (Result<Items, NetworkError>) -> Void) {
     let param: [String: Any] = [
       "query": paramData,
       "page": page,
@@ -44,9 +39,14 @@ extension NetworkService {
       .responseData { response in
         switch response.result {
         case let .success(data):
-          onComplete(.success(data))
-        case let .failure(error):
-          onComplete(.failure(error))
+          do {
+            let result = try JSONDecoder().decode(Items.self, from: data)
+            onComplete(.success(result))
+          } catch {
+            onComplete(.failure(.defaultError))
+          }
+        case .failure:
+          onComplete(.failure(.defaultError))
         }
       }
   }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Toast_Swift
 import RxSwift
 import RxCocoa
 import SnapKit
@@ -137,6 +138,15 @@ final class ImageListViewController: BaseViewController {
       .subscribe(onNext: { [weak self] state in
         guard let `self` = self else { return }
         self.imageListView.setDescriptView(type: state)
+      })
+      .disposed(by: self.disposeBag)
+    
+    self.viewModel.errorMessage
+      .subscribe(onNext: { [weak self] str in
+        guard let `self` = self else { return }
+        self.view.makeToast(str, duration: 2.0, position: .center)
+        self.searchController.searchBar.text = ""
+        self.searchController.searchBar.endEditing(true)
       })
       .disposed(by: self.disposeBag)
   }

@@ -14,10 +14,12 @@ class ImageDetailBottomView: UIView {
   let displaySiteNameLabel = UILabel().then {
     $0.textAlignment = .right
     $0.textColor = .systemBlue
+    $0.font = UIFont.systemFont(ofSize: 17)
   }
   let dateTimeLabel = UILabel().then {
     $0.textAlignment = .right
     $0.textColor = .systemBlue
+    $0.font = UIFont.systemFont(ofSize: 12)
   }
   lazy var stackView = UIStackView().then {
     $0.axis = .vertical

@@ -20,9 +20,11 @@ final class ImageDetailViewController: BaseViewController {
   // MARK: - UI
   
   let detailImageView = UIImageView().then {
-    $0.contentMode = .scaleAspectFill
+    $0.contentMode = .scaleAspectFit
   }
-  let scrollView = UIScrollView()
+  lazy var scrollView = UIScrollView().then {
+    $0.contentSize = CGSize(width: 475, height: 1500)
+  }
   let topStatusView = ImageDetailTopView()
   let bottomStatusView = ImageDetailBottomView()
   
@@ -45,6 +47,12 @@ final class ImageDetailViewController: BaseViewController {
       $0.displaySiteNameLabel.text = image.displaySitename
       $0.dateTimeLabel.text = image.datetime.toDate
     }
+    
+    let widthRatio = self.viewWidth / CGFloat(image.width)
+    let heightResult = CGFloat(image.height) * widthRatio
+    self.scrollView.do {
+      $0.contentSize = CGSize(width: self.viewWidth, height: heightResult)
+    }
   }
   
   // MARK: - ViewDidLoad
@@ -52,9 +60,6 @@ final class ImageDetailViewController: BaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     self.view.backgroundColor = .white
-    self.scrollView.do {
-      $0.contentSize = self.detailImageView.bounds.size
-    }
   }
   
   
@@ -68,9 +73,10 @@ final class ImageDetailViewController: BaseViewController {
       .disposed(by: self.disposeBag)
     
     self.topStatusView.backButton.rx.tap
-      .subscribe { [weak self] _ in
-        self?.dismiss(animated: true, completion: nil)
-      }
+      .subscribe(onNext: { [weak self] _ in
+        guard let `self` = self else { return }
+        self.dismiss(animated: true, completion: nil)
+      })
       .disposed(by: self.disposeBag)
   }
   

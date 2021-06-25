@@ -12,11 +12,13 @@ struct Image: Codable {
   let displaySitename: String
   let imageURL: String
   let thumbnailURL: String
+  let height, width: Int
   
   enum CodingKeys: String, CodingKey {
     case datetime
     case displaySitename = "display_sitename"
     case imageURL = "image_url"
     case thumbnailURL = "thumbnail_url"
+    case height, width
   }
 }

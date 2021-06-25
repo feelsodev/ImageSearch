@@ -10,11 +10,13 @@ target 'ImageSearch' do
   
   # UI
   pod 'SnapKit'
+  pod 'Toast-Swift', '~> 5.0.1'
 
   # Rx
   pod 'RxSwift'
   pod 'RxCocoa'
   pod 'RxGesture'
+  pod 'RxOptional'
 
   # Etc
   pod 'Then'

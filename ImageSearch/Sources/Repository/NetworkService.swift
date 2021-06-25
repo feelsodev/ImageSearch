@@ -36,7 +36,7 @@ extension NetworkService {
       "page": page,
       "size": 30
     ]
-        
+    
     NetworkManager
       .shared
       .session

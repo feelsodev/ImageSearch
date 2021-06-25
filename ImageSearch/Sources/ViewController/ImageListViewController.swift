@@ -27,6 +27,7 @@ final class ImageListViewController: BaseViewController {
   
   
   // MARK: - UI
+  
   let loadingActivity = UIActivityIndicatorView().then {
     $0.hidesWhenStopped = true
   }
@@ -139,6 +140,9 @@ final class ImageListViewController: BaseViewController {
       })
       .disposed(by: self.disposeBag)
   }
+  
+  
+  // MARK: - SetupConstraints
   
   override func setupConstraints() {
     self.view.addSubview(self.imageListView)

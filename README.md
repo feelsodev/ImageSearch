@@ -1,8 +1,17 @@
-개발 환경
+# 🔎 Simple Image Search
+
+### How to run
+
+```
+> cd ImageSearch
+> pod install
+> open ImageSearch.xcworkspace
+```
+Requirements
 ------------
-1. Swift 버전
+1. Swift Version
 > * 5.2
-2. 사용한 라이브러리
+2. Library
 > * Alamofire 
 > * Toast-Swift
 > * RxSwift
@@ -13,43 +22,46 @@
 > * SwiftLint
 > * RxBlocking
 > * RxTest
-3. 구조
+3. Architecture
 > * MVVM 
+4. Dependancy
+> * The project is managed by CocoaPods.
 
 
-기능 설명
+
+Features
 ------------
-### 1. 초기화면
+### 1. Main
 <p align="left">
 <img src="doc/init.PNG" width="300" />
 </p>
 <br>
 
-### 2. 검색
+### 2. Search
 <p align="left">
 <img src="doc/search.GIF" width="300" />
 </p>
 <br>
 
-### 3. 페이징
+### 3. Paging
 <p align="left">
 <img src="doc/paging.GIF" width="300" />
 </p>
 <br>
 
-### 4. 이미지 상세
+### 4. Image detail
 <p align="left">
 <img src="doc/image_detail.GIF" width="300" />
 </p>
 <br>
 
-### 5. 검색실패
+### 5. Search error
 <p align="left">
 <img src="doc/search_fail.PNG" width="300" />
 </p>
 <br>
 
-### 네트워크 & API에러
+### 6. Network & API Error
 <p align="left">
 <img src="doc/error.GIF" width="300" />
 </p>

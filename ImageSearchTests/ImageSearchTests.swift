@@ -26,7 +26,7 @@ class ImageSearchTests: XCTestCase {
     self.viewModel.searchImage.onNext("Test data input")
     
     let testArray: [Image] = ImageDummyData.imageArry
-    let images = try! self.viewModel.allImageList.toBlocking(timeout: 201).first()!
+    let images = try! self.viewModel.allImageList.toBlocking().first()!
     
     XCTAssertEqual(images, testArray)
   }

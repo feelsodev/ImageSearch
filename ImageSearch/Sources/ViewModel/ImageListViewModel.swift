@@ -114,7 +114,7 @@ final class ImageListViewModel: ImageListViewModelType {
       .bind(to: errorMessageProxy)
       .disposed(by: self.disposeBag)
     
-    self.nextPageImage = nextPageImage.asObserver()
+    self.nextPageImage = nextPagingImage.asObserver()
     
     let additionalFetchImage = Observable
       .zip(nextPagingImage, isEnd)

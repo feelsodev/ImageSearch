@@ -4,6 +4,7 @@ file_length:
     warning: 1000
 
 disabled_rules:
+- force_try
 - line_length
 - trailing_whitespace
 - vertical_whitespace

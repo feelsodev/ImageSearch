@@ -177,7 +177,7 @@ extension ImageListViewController {
     case .loading:
       self.imageListView.alpha = 0
       self.loadingActivity.startAnimating()
-    case .finished:
+    case .finish:
       self.imageListView.alpha = 1
       self.loadingActivity.stopAnimating()
     case .empty:

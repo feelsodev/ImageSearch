@@ -43,12 +43,12 @@ final class ImageListViewModel: ImageListViewModelType {
   init(model: ImageListFetchable = ImageListModel()) {
     
     let searchingImage = PublishSubject<String>()
-    let nextPageImage = PublishSubject<Void>()
+    let nextPagingImage = PublishSubject<Void>()
     let emptyState = PublishSubject<Bool>()
     
     let imageList = BehaviorRelay<[Image]>(value: [])
     let loading = PublishRelay<LoadingState>()
-    let cellBG = BehaviorRelay<DescriptState>(value: .empty)
+    let cellBackground = BehaviorRelay<DescriptState>(value: .empty)
     let errorMessageProxy = PublishSubject<String>()
       
     // Materials
@@ -67,6 +67,7 @@ final class ImageListViewModel: ImageListViewModelType {
     self.searchImage = searchingImage.asObserver()
     
     let imageResult = searchingImage
+      .skip(1)
       .filter { !$0.isEmpty }
       .do { _ in page.accept(1) }
       .flatMap { model.fetchImageList(page: 1, param: $0) }
@@ -82,9 +83,9 @@ final class ImageListViewModel: ImageListViewModelType {
       .filterNil()
       .subscribe(onNext: { image in
         if image.isEmpty {
-          cellBG.accept(.error)
+          cellBackground.accept(.error)
         } else {
-          cellBG.accept(.finish)
+          cellBackground.accept(.finish)
         }
         imageList.accept(image)
         loading.accept(.finish)
@@ -113,10 +114,10 @@ final class ImageListViewModel: ImageListViewModelType {
       .bind(to: errorMessageProxy)
       .disposed(by: self.disposeBag)
     
-    self.nextPageImage = nextPageImage.asObserver()
+    self.nextPageImage = nextPagingImage.asObserver()
     
     let additionalFetchImage = Observable
-      .zip(nextPageImage, isEnd)
+      .zip(nextPagingImage, isEnd)
       .filter { !$1 }
       .withLatestFrom(valuesForSearch)
       .map { (pg, key) -> (Int, String) in
@@ -147,12 +148,11 @@ final class ImageListViewModel: ImageListViewModelType {
         imageList.accept([])
         
         if state {
-          page.accept(1)
           loading.accept(.empty)
-          cellBG.accept(.empty)
+          cellBackground.accept(.empty)
         } else {
           loading.accept(.loading)
-          cellBG.accept(.loading)
+          cellBackground.accept(.loading)
         }
       })
       .disposed(by: self.disposeBag)
@@ -161,7 +161,7 @@ final class ImageListViewModel: ImageListViewModelType {
     
     self.allImageList = imageList.asObservable()
     self.loadingState = loading.asObservable()
-    self.cellBackgroundState = cellBG.asObservable()
+    self.cellBackgroundState = cellBackground.asObservable()
     self.errorMessage = errorMessageProxy.asObservable()
   }
   

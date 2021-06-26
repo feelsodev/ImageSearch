@@ -16,9 +16,9 @@ final class ImageListViewController: BaseViewController {
   // MARK: - Constants
   
   struct Metric {
-    static let padding: CGFloat = 5
-    static let cellWidth = UIScreen.main.bounds.width / 3 - 10
-    static let CellHeight = UIScreen.main.bounds.width / 3 - 10
+    static let padding: CGFloat = 3
+    static let cellWidth = UIScreen.main.bounds.width / 3 - 2
+    static let CellHeight = UIScreen.main.bounds.width / 3 - 2
   }
   
   
@@ -44,7 +44,6 @@ final class ImageListViewController: BaseViewController {
       $0.minimumInteritemSpacing = Metric.padding
       $0.scrollDirection = .vertical
       $0.itemSize = CGSize(width: Metric.cellWidth, height: Metric.CellHeight)
-      $0.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
     }
   ).then {
     $0.backgroundColor = .white
@@ -81,7 +80,7 @@ final class ImageListViewController: BaseViewController {
   override func bind() {
     
     // UI CONTROL
-    self.imageListView.rx.didScroll
+    self.imageListView.rx.didEndDragging
       .subscribe { [weak self] _ in
         guard let `self` = self else { return }
         self.searchController.searchBar.endEditing(true)
@@ -92,7 +91,6 @@ final class ImageListViewController: BaseViewController {
     let searchBarOb = self.searchController.searchBar.rx.text
       .orEmpty
       .distinctUntilChanged()
-      .skip(1)
       .share()
     
     searchBarOb

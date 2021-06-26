@@ -14,7 +14,7 @@ class ImageDetailTopView: UIView {
   let backButton = UIButton().then {
     $0.tintColor = .systemBlue
     $0.setImage(UIImage().setSFSymbols(systemName: "xmark",
-                                       weight: .regular), for: .normal)
+                                       weight: .medium), for: .normal)
   }
   
   

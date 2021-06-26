@@ -55,6 +55,7 @@ final class ImageDetailViewController: BaseViewController {
     }
   }
   
+  
   // MARK: - ViewDidLoad
   
   override func viewDidLoad() {
@@ -128,7 +129,6 @@ extension ImageDetailViewController {
         self.setNeedsStatusBarAppearanceUpdate()
         self.view.backgroundColor = .black
       })
-      
     }
   }
 }

@@ -67,6 +67,7 @@ final class ImageListViewModel: ImageListViewModelType {
     self.searchImage = searchingImage.asObserver()
     
     let imageResult = searchingImage
+      .skip(1)
       .filter { !$0.isEmpty }
       .do { _ in page.accept(1) }
       .flatMap { model.fetchImageList(page: 1, param: $0) }
@@ -147,7 +148,6 @@ final class ImageListViewModel: ImageListViewModelType {
         imageList.accept([])
         
         if state {
-          page.accept(1)
           loading.accept(.empty)
           cellBG.accept(.empty)
         } else {

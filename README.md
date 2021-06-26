@@ -13,13 +13,13 @@ Requirements
 > * 5.2
 2. Library
 > * Alamofire 
+> * SwiftLint
+> * Then
 > * Toast-Swift
 > * RxSwift
 > * RxCocoa
 > * RxGesture
 > * RxOptional
-> * Then
-> * SwiftLint
 > * RxBlocking
 > * RxTest
 3. Architecture

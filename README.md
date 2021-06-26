@@ -15,3 +15,36 @@
 > * RxTest
 3. 구조
 > * MVVM 
+
+
+기능 설명
+------------
+### 1. 초기화면
+<p align="left">
+<img src="doc/init.PNG" width="300" />
+</p>
+<br>
+
+### 2. 검색
+<p align="left">
+<img src="doc/search.GIF" width="300" />
+</p>
+<br>
+
+### 3. 페이징
+<p align="left">
+<img src="paging.GIF" width="300" />
+</p>
+<br>
+
+### 4. 이미지 상세
+<p align="left">
+<img src="image_detail.GIF" width="300" />
+</p>
+<br>
+
+### 5. 검색실패
+<p align="left">
+<img src="search_fail.PNG" width="300" />
+</p>
+<br>

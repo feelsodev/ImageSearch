@@ -33,18 +33,18 @@
 
 ### 3. 페이징
 <p align="left">
-<img src="paging.GIF" width="300" />
+<img src="doc/paging.GIF" width="300" />
 </p>
 <br>
 
 ### 4. 이미지 상세
 <p align="left">
-<img src="image_detail.GIF" width="300" />
+<img src="doc/image_detail.GIF" width="300" />
 </p>
 <br>
 
 ### 5. 검색실패
 <p align="left">
-<img src="search_fail.PNG" width="300" />
+<img src="doc/search_fail.PNG" width="300" />
 </p>
 <br>

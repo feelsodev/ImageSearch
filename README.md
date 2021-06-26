@@ -48,3 +48,10 @@
 <img src="doc/search_fail.PNG" width="300" />
 </p>
 <br>
+
+### 네트워크 & API에러
+<p align="left">
+<img src="doc/error.GIF" width="300" />
+</p>
+<br>
+

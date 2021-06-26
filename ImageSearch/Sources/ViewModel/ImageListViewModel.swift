@@ -4,7 +4,6 @@
 //
 //  Created by once on 2021/06/21.
 //
-
 import Foundation
 import RxSwift
 import RxCocoa
@@ -43,12 +42,12 @@ final class ImageListViewModel: ImageListViewModelType {
   init(model: ImageListFetchable = ImageListModel()) {
     
     let searchingImage = PublishSubject<String>()
-    let nextPagingImage = PublishSubject<Void>()
+    let nextPageImage = PublishSubject<Void>()
     let emptyState = PublishSubject<Bool>()
     
     let imageList = BehaviorRelay<[Image]>(value: [])
     let loading = PublishRelay<LoadingState>()
-    let cellBackground = BehaviorRelay<DescriptState>(value: .empty)
+    let cellBG = BehaviorRelay<DescriptState>(value: .empty)
     let errorMessageProxy = PublishSubject<String>()
       
     // Materials
@@ -67,7 +66,6 @@ final class ImageListViewModel: ImageListViewModelType {
     self.searchImage = searchingImage.asObserver()
     
     let imageResult = searchingImage
-      .skip(1)
       .filter { !$0.isEmpty }
       .do { _ in page.accept(1) }
       .flatMap { model.fetchImageList(page: 1, param: $0) }
@@ -83,9 +81,9 @@ final class ImageListViewModel: ImageListViewModelType {
       .filterNil()
       .subscribe(onNext: { image in
         if image.isEmpty {
-          cellBackground.accept(.error)
+          cellBG.accept(.error)
         } else {
-          cellBackground.accept(.finish)
+          cellBG.accept(.finish)
         }
         imageList.accept(image)
         loading.accept(.finish)
@@ -114,10 +112,10 @@ final class ImageListViewModel: ImageListViewModelType {
       .bind(to: errorMessageProxy)
       .disposed(by: self.disposeBag)
     
-    self.nextPageImage = nextPagingImage.asObserver()
+    self.nextPageImage = nextPageImage.asObserver()
     
     let additionalFetchImage = Observable
-      .zip(nextPagingImage, isEnd)
+      .zip(nextPageImage, isEnd)
       .filter { !$1 }
       .withLatestFrom(valuesForSearch)
       .map { (pg, key) -> (Int, String) in
@@ -148,11 +146,12 @@ final class ImageListViewModel: ImageListViewModelType {
         imageList.accept([])
         
         if state {
+          page.accept(1)
           loading.accept(.empty)
-          cellBackground.accept(.empty)
+          cellBG.accept(.empty)
         } else {
           loading.accept(.loading)
-          cellBackground.accept(.loading)
+          cellBG.accept(.loading)
         }
       })
       .disposed(by: self.disposeBag)
@@ -161,7 +160,7 @@ final class ImageListViewModel: ImageListViewModelType {
     
     self.allImageList = imageList.asObservable()
     self.loadingState = loading.asObservable()
-    self.cellBackgroundState = cellBackground.asObservable()
+    self.cellBackgroundState = cellBG.asObservable()
     self.errorMessage = errorMessageProxy.asObservable()
   }
   

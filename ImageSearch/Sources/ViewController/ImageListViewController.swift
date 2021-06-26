@@ -81,7 +81,7 @@ final class ImageListViewController: BaseViewController {
   override func bind() {
     
     // UI CONTROL
-    self.imageListView.rx.didScroll
+    self.imageListView.rx.didEndDragging
       .subscribe { [weak self] _ in
         guard let `self` = self else { return }
         self.searchController.searchBar.endEditing(true)
@@ -92,7 +92,6 @@ final class ImageListViewController: BaseViewController {
     let searchBarOb = self.searchController.searchBar.rx.text
       .orEmpty
       .distinctUntilChanged()
-      .skip(1)
       .share()
     
     searchBarOb

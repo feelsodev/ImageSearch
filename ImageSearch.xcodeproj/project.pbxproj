@@ -32,6 +32,8 @@
 		A5404E2F268095D7009CBA6E /* ImageSearchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5404E2E268095D7009CBA6E /* ImageSearchUITests.swift */; };
 		A5404E3E268099C9009CBA6E /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = A5404E3D268099C9009CBA6E /* .swiftlint.yml */; };
 		A5404E4A26809FE0009CBA6E /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5404E4926809FE0009CBA6E /* BaseViewController.swift */; };
+		A545817B26874FA20052DD08 /* NetworkServiceStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = A545817A26874FA20052DD08 /* NetworkServiceStub.swift */; };
+		A545817D26874FAC0052DD08 /* ImageDummyData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A545817C26874FAC0052DD08 /* ImageDummyData.swift */; };
 		A59E24F426848D800020B112 /* Reactive+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E24F326848D800020B112 /* Reactive+Ext.swift */; };
 		A59E24F62684C67F0020B112 /* LoadingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E24F52684C67F0020B112 /* LoadingState.swift */; };
 		A59E24F82684CBBF0020B112 /* DescriptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A59E24F72684CBBF0020B112 /* DescriptView.swift */; };
@@ -98,6 +100,8 @@
 		A5404E30268095D7009CBA6E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A5404E3D268099C9009CBA6E /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		A5404E4926809FE0009CBA6E /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		A545817A26874FA20052DD08 /* NetworkServiceStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceStub.swift; sourceTree = "<group>"; };
+		A545817C26874FAC0052DD08 /* ImageDummyData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDummyData.swift; sourceTree = "<group>"; };
 		A59E24F326848D800020B112 /* Reactive+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Reactive+Ext.swift"; sourceTree = "<group>"; };
 		A59E24F52684C67F0020B112 /* LoadingState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingState.swift; sourceTree = "<group>"; };
 		A59E24F72684CBBF0020B112 /* DescriptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptView.swift; sourceTree = "<group>"; };
@@ -227,6 +231,7 @@
 		A5404E22268095D7009CBA6E /* ImageSearchTests */ = {
 			isa = PBXGroup;
 			children = (
+				A545817926874F910052DD08 /* Stub */,
 				A5404E23268095D7009CBA6E /* ImageSearchTests.swift */,
 				A5404E25268095D7009CBA6E /* Info.plist */,
 			);
@@ -327,6 +332,15 @@
 			path = BaseComponent;
 			sourceTree = "<group>";
 		};
+		A545817926874F910052DD08 /* Stub */ = {
+			isa = PBXGroup;
+			children = (
+				A545817A26874FA20052DD08 /* NetworkServiceStub.swift */,
+				A545817C26874FAC0052DD08 /* ImageDummyData.swift */,
+			);
+			path = Stub;
+			sourceTree = "<group>";
+		};
 		A5B44BC42685C71000C22204 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -377,6 +391,7 @@
 				A5404E1B268095D7009CBA6E /* Sources */,
 				A5404E1C268095D7009CBA6E /* Frameworks */,
 				A5404E1D268095D7009CBA6E /* Resources */,
+				6AAA67305FD6E8BEF5694E8A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -540,6 +555,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		6AAA67305FD6E8BEF5694E8A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ImageSearchTests/Pods-ImageSearchTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ImageSearchTests/Pods-ImageSearchTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ImageSearchTests/Pods-ImageSearchTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		714CF3E8C10AA8D7F92A9420 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -639,7 +671,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A545817B26874FA20052DD08 /* NetworkServiceStub.swift in Sources */,
 				A5404E24268095D7009CBA6E /* ImageSearchTests.swift in Sources */,
+				A545817D26874FAC0052DD08 /* ImageDummyData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

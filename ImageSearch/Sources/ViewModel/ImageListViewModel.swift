@@ -88,7 +88,7 @@ final class ImageListViewModel: ImageListViewModelType {
           cellBG.accept(.finish)
         }
         imageList.accept(image)
-        loading.accept(.finished)
+        loading.accept(.finish)
       })
       .disposed(by: self.disposeBag)
     

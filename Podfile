@@ -25,10 +25,14 @@ target 'ImageSearch' do
   target 'ImageSearchTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'RxBlocking'
+    pod 'RxTest'
   end
 
   target 'ImageSearchUITests' do
     # Pods for testing
+    pod 'RxBlocking'
+    pod 'RxTest'
   end
 
 end

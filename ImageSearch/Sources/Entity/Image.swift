@@ -22,3 +22,14 @@ struct Image: Codable {
     case height, width
   }
 }
+
+extension Image: Equatable {
+  static func == (lhs: Image, rhs: Image) -> Bool {
+    return lhs.datetime == rhs.datetime
+      && lhs.displaySitename == rhs.displaySitename
+      && lhs.imageURL == rhs.imageURL
+      && lhs.thumbnailURL == rhs.thumbnailURL
+      && lhs.width == rhs.width
+      && lhs.height == rhs.height
+  }
+}

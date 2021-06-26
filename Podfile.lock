@@ -1,5 +1,7 @@
 PODS:
   - Alamofire (5.4.3)
+  - RxBlocking (6.2.0):
+    - RxSwift (= 6.2.0)
   - RxCocoa (6.2.0):
     - RxRelay (= 6.2.0)
     - RxSwift (= 6.2.0)
@@ -12,6 +14,8 @@ PODS:
   - RxRelay (6.2.0):
     - RxSwift (= 6.2.0)
   - RxSwift (6.2.0)
+  - RxTest (6.2.0):
+    - RxSwift (= 6.2.0)
   - SnapKit (5.0.1)
   - SwiftLint (0.43.1)
   - Then (2.7.0)
@@ -19,10 +23,12 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - RxBlocking
   - RxCocoa
   - RxGesture
   - RxOptional
   - RxSwift
+  - RxTest
   - SnapKit
   - SwiftLint
   - Then
@@ -31,11 +37,13 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - RxBlocking
     - RxCocoa
     - RxGesture
     - RxOptional
     - RxRelay
     - RxSwift
+    - RxTest
     - SnapKit
     - SwiftLint
     - Then
@@ -43,16 +51,18 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
+  RxBlocking: 0b29f7d2079109a8de49c411381bed7c33ef1eeb
   RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
   RxGesture: f059f2aeef966fb17dad56ee440e76410f10e55f
   RxOptional: 3664964c96b69dd20c9cf78bdfe546615e26eca8
   RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
   RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
+  RxTest: 0c692fa672b694373ba86d2b00033595297a2831
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SwiftLint: 99f82d07b837b942dd563c668de129a03fc3fb52
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: dfed24cab5e53703f1a3132c16b43b922e685514
+PODFILE CHECKSUM: d4fdb5ecca9d1b2ae6c883e2265aaf0536fff9f8
 
 COCOAPODS: 1.10.1

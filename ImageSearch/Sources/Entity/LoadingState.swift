@@ -10,5 +10,5 @@ import Foundation
 // MARK: - Loading State
 
 enum LoadingState {
-    case loading, finished, empty, error
+    case loading, finish, empty, error
 }
